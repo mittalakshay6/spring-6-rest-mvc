@@ -69,7 +69,7 @@ public class BeerController {
     Method annotated with @ExceptionHandler will run for all methods of this class whenever the specified exception is raised.
 
     Using this technique separate controllers have to be written for separate classes, hence, in a larger app with multiple
-    controller classes, this technique might not scale.
+    controller classes, this technique might not scale. Hence, we can use @ControllerAdvice for this use case.
      */
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<?> handleNotFoundException() {
