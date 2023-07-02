@@ -65,6 +65,17 @@ public class BeerController {
         return beerService.listBeers();
     }
 
+    /*
+    Method annotated with @ExceptionHandler will run for all methods of this class whenever the specified exception is raised.
+
+    Using this technique separate controllers have to be written for separate classes, hence, in a larger app with multiple
+    controller classes, this technique might not scale.
+     */
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<?> handleNotFoundException() {
+        return ResponseEntity.notFound().build();
+    }
+
     @GetMapping(value = BEER_PATH_ID)
     public Beer getBeerById(@PathVariable("beerId") UUID beerId){
 
