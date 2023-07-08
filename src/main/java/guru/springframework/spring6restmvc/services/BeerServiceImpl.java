@@ -8,12 +8,7 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by jt, Spring Framework Guru.
@@ -99,12 +94,13 @@ public class BeerServiceImpl implements BeerService {
     }
 
     @Override
-    public void updateBeerById(UUID beerId, BeerDTO beerDTO) {
+    public Optional<BeerDTO> updateBeerById(UUID beerId, BeerDTO beerDTO) {
         BeerDTO existing = beerMap.get(beerId);
         existing.setBeerName(beerDTO.getBeerName());
         existing.setPrice(beerDTO.getPrice());
         existing.setUpc(beerDTO.getUpc());
         existing.setQuantityOnHand(beerDTO.getQuantityOnHand());
+        return Optional.of(existing);
     }
 
     @Override
