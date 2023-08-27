@@ -9,6 +9,7 @@ import guru.springframework.spring6restmvc.repositories.BeerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,6 +64,23 @@ public class BeerServiceJPA implements BeerService {
 
     @Override
     public void patchBeerById(UUID beerId, BeerDTO beerDTO) {
-
+        beerRepository.findById(beerId).ifPresent(foundBeer -> {
+            if (StringUtils.hasText(beerDTO.getBeerName())){
+                foundBeer.setBeerName(beerDTO.getBeerName());
+            }
+            if (beerDTO.getBeerStyle() != null) {
+                foundBeer.setBeerStyle(beerDTO.getBeerStyle());
+            }
+            if (beerDTO.getPrice() != null) {
+                foundBeer.setPrice(beerDTO.getPrice());
+            }
+            if (beerDTO.getQuantityOnHand() != null){
+                foundBeer.setQuantityOnHand(beerDTO.getQuantityOnHand());
+            }
+            if (StringUtils.hasText(beerDTO.getUpc())) {
+                foundBeer.setUpc(beerDTO.getUpc());
+            }
+            beerRepository.save(foundBeer);
+        });
     }
 }
